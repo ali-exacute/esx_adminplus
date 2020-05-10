@@ -40,8 +40,6 @@ special thanks to `Cold Cat!!!#8585` for helping me on debugging and testing
 [esx_ambulancejob](https://github.com/ESX-Org/esx_ambulancejob)
 
 **notes:**
->i am not sure if this will work with [ExtendedMode](https://github.com/extendedmode/extendedmode) , but as far as i see, it should work just fine [didn't test it tho]
-
 >there is no UI like [es_admin](https://github.com/kanersps/es_admin) , all commands are easy to use already
 
 > you can exclude rank(s) from accessing to a command by passing a table of ranks as second argument to `havePermission()`
