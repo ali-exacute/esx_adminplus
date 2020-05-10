@@ -1,5 +1,5 @@
 hello everyone!
-first of all , this my first time releasing something on [forum](https://forum.cfx.re/) , so take it easy on me!
+first of all , this my first time releasing something on [forum](https://forum.cfx.re/t/esx-1-2-esx-adminplus/1202550?u=ali_exacute) , so take it easy on me!
 
 i just make this script for [newest ESX version [1.2]](https://github.com/ESX-Org/es_extended)
 
