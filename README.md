@@ -13,7 +13,7 @@ All commands available in this script:
 >**ingame Admin commands**
 * **/admin** | Your exact rank on server
 * **/tpm** | Teleports you to a selected waypoint on the map [thanks to [qalle](https://github.com/qalle-fivem/esx_marker)] for his code
-* **/noclip** | Noclip [thanks to [riftwebdev]](https://github.com/riftwebdev) for his code
+* **/noclip** | Noclip [thanks to [riftwebdev](https://github.com/riftwebdev)] for his code
 * **/coords** | Prints PED coordinates in serverconsole and F8
 * **/report [message]** | Sends `message` to all online admins [configurable cooldown]
 * **/announce [message]** | Sends announcements to all online players
