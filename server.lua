@@ -191,6 +191,16 @@ RegisterCommand("goback", function(source, args, rawCommand)	-- /goback will tel
 	  	end
 	end
 end, false)
+
+---------- Noclip --------
+RegisterCommand("noclip", function(source, args, rawCommand)	-- /goback will teleport you back where you was befor /goto
+	if source ~= 0 then
+	  	local xPlayer = ESX.GetPlayerFromId(source)
+	  	if havePermission(xPlayer) then
+	    	xPlayer.triggerEvent("esx_admin:noclip")
+	  	end
+	end
+end, false)
 ---------- kill ----------
 RegisterCommand("kill", function(source, args, rawCommand)	-- /kill [ID]
 	if source ~= 0 then
