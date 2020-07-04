@@ -27,7 +27,7 @@ RegisterCommand("coords", function(source, args, rawCommand)	-- /coords		print e
 	if source ~= 0 then
 		local xPlayer = ESX.GetPlayerFromId(source)
 		if havePermission(xPlayer) then
-			print(xPlayer.getCoords(true))
+			print(GetEntityCoords(GetPlayerPed(source)))
 		end
 	end
 end, false)
@@ -36,6 +36,7 @@ RegisterCommand("players", function(source, args, rawCommand)	-- players		show o
 	isPlayerOnline = false
 	if source == 0 then
 		local xAll = ESX.GetPlayers()
+		print("^2"..#xAll.." ^3online player(s)^0")
 		for i=1, #xAll, 1 do
 			local xPlayer = ESX.GetPlayerFromId(xAll[i])
 			print("^4[ ^2ID : ^3"..xPlayer.playerId.." ^0| ^2Name : ^3"..xPlayer.getName().." ^0 | ^2Group : ^3"..xPlayer.getGroup().." ^4]^0\n")
