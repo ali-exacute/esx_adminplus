@@ -10,7 +10,7 @@ local deadPlayers   = {}
 RegisterCommand("admin", function(source, args, rawCommand)
 	if source ~= 0 then
 		local xPlayer = ESX.GetPlayerFromId(source)
-		TriggerClientEvent('chatMessage', xPlayer.playerId, _U('your_rank', xPlayer.getGroup()))
+		TriggerClientEvent('chatMessage', xPlayer.source, _U('your_rank', xPlayer.getGroup()))
 	end
 end, false)
 
@@ -18,7 +18,7 @@ RegisterCommand("tpm", function(source, args, rawCommand)	-- /tpm		teleport to w
 	if source ~= 0 then
 		local xPlayer = ESX.GetPlayerFromId(source)
 		if havePermission(xPlayer) then
-			TriggerClientEvent("esx_admin:tpm", xPlayer.playerId)
+			TriggerClientEvent("esx_admin:tpm", xPlayer.source)
 		end
 	end
 end, false)
@@ -39,7 +39,7 @@ RegisterCommand("players", function(source, args, rawCommand)	-- players		show o
 		print("^2"..#xAll.." ^3online player(s)^0")
 		for i=1, #xAll, 1 do
 			local xPlayer = ESX.GetPlayerFromId(xAll[i])
-			print("^4[ ^2ID : ^3"..xPlayer.playerId.." ^0| ^2Name : ^3"..xPlayer.getName().." ^0 | ^2Group : ^3"..xPlayer.getGroup().." ^4]^0\n")
+			print("^4[ ^2ID : ^3"..xPlayer.source.." ^0| ^2Name : ^3"..xPlayer.getName().." ^0 | ^2Group : ^3"..xPlayer.getGroup().." ^4]^0\n")
 			isPlayerOnline = true
 		end
 		if not isPlayerOnline then
@@ -52,7 +52,7 @@ RegisterCommand("report", function(source, args, rawCommand)	-- /report [MESSAGE
   	local xPlayer = ESX.GetPlayerFromId(source)
 	if onTimer[source] and onTimer[source] > GetGameTimer() then
 		local timeLeft = (onTimer[source] - GetGameTimer()) / 1000
-		TriggerClientEvent('chatMessage', xPlayer.playerId, _U('report_cooldown', tostring(ESX.Math.Round(timeLeft))))
+		TriggerClientEvent('chatMessage', xPlayer.source, _U('report_cooldown', tostring(ESX.Math.Round(timeLeft))))
 		return
 	end
 	if args[1] then
@@ -61,15 +61,15 @@ RegisterCommand("report", function(source, args, rawCommand)	-- /report [MESSAGE
     	for i=1, #xAll, 1 do
       		local xTarget = ESX.GetPlayerFromId(xAll[i])
       		if havePermission(xTarget) then		-- you can exclude some ranks to NOT reciveing reports
-        		if xPlayer.playerId ~= xTarget.playerId then
-		    		TriggerClientEvent('chatMessage', xTarget.playerId, _U('report', xPlayer.getName(), xPlayer.playerId, message))
+        		if xPlayer.source ~= xTarget.source then
+		    		TriggerClientEvent('chatMessage', xTarget.source, _U('report', xPlayer.getName(), xPlayer.source, message))
         		end
       		end
 		end
-		TriggerClientEvent('chatMessage', xPlayer.playerId, _U('report', xPlayer.getName(), xPlayer.playerId, message))
+		TriggerClientEvent('chatMessage', xPlayer.source, _U('report', xPlayer.getName(), xPlayer.source, message))
 		onTimer[source] = GetGameTimer() + (Config.reportCooldown * 1000)
 	else
-		TriggerClientEvent('chatMessage', xPlayer.playerId, _U('invalid_input', 'REPORT'))
+		TriggerClientEvent('chatMessage', xPlayer.source, _U('invalid_input', 'REPORT'))
 	end
 end, false)
 ------------ announcement -------------
@@ -84,7 +84,7 @@ RegisterCommand("announce", function(source, args, rawCommand)	-- /announce [MES
 				end
 			end
 		else
-    		TriggerClientEvent('chatMessage', xPlayer.playerId, _U('invalid_input', 'ANNOUNCMENT'))
+    		TriggerClientEvent('chatMessage', xPlayer.source, _U('invalid_input', 'ANNOUNCMENT'))
 	 	end
 	end
 end, false)
@@ -113,13 +113,13 @@ RegisterCommand("bring", function(source, args, rawCommand)	-- /bring [ID]
 	        		local playerCoords = xPlayer.getCoords()
 	        		savedCoords[targetId] = targetCoords
 	        		xTarget.setCoords(playerCoords)
-	        		TriggerClientEvent("chatMessage", xPlayer.playerId, _U('bring_adminside', args[1]))
-	        		TriggerClientEvent("chatMessage", xTarget.playerId, _U('bring_playerside'))
+	        		TriggerClientEvent("chatMessage", xPlayer.source, _U('bring_adminside', args[1]))
+	        		TriggerClientEvent("chatMessage", xTarget.source, _U('bring_playerside'))
 	      		else
-	        		TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'BRING'))
+	        		TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'BRING'))
 	      		end
 	    	else
-	      		TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'BRING'))
+	      		TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'BRING'))
 	    	end
 	  	end
 	end
@@ -136,17 +136,17 @@ RegisterCommand("bringback", function(source, args, rawCommand)	-- /bringback [I
         			local playerCoords = savedCoords[targetId]
         			if playerCoords then
           			xTarget.setCoords(playerCoords)
-          			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('bringback_admin', 'BRINGBACK', args[1]))
-          			TriggerClientEvent("chatMessage", xTarget.playerId,  _U('bringback_player', 'BRINGBACK'))
+          			TriggerClientEvent("chatMessage", xPlayer.source, _U('bringback_admin', 'BRINGBACK', args[1]))
+          			TriggerClientEvent("chatMessage", xTarget.source,  _U('bringback_player', 'BRINGBACK'))
           			savedCoords[targetId] = nil
         		else
-          			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('noplace_bring'))
+          			TriggerClientEvent("chatMessage", xPlayer.source, _U('noplace_bring'))
         			end
       			else
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'BRINGBACK'))
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'BRINGBACK'))
       			end
     		else
-      			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'BRINGBACK'))
+      			TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'BRINGBACK'))
     		end
   		end
 	end
@@ -165,13 +165,13 @@ RegisterCommand("goto", function(source, args, rawCommand)	-- /goto [ID]
         			local playerCoords = xPlayer.getCoords()
         			savedCoords[source] = playerCoords
         			xPlayer.setCoords(targetCoords)
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('goto_admin', args[1]))
-					TriggerClientEvent("chatMessage", xTarget.playerId,  _U('goto_player'))
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('goto_admin', args[1]))
+					TriggerClientEvent("chatMessage", xTarget.source,  _U('goto_player'))
       			else
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'GOTO'))
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'GOTO'))
       			end
     		else
-      			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'GOTO'))
+      			TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'GOTO'))
     		end
   		end
 	end
@@ -184,10 +184,10 @@ RegisterCommand("goback", function(source, args, rawCommand)	-- /goback will tel
 	    	local playerCoords = savedCoords[source]
 	    	if playerCoords then
 	      		xPlayer.setCoords(playerCoords)
-				TriggerClientEvent("chatMessage", xPlayer.playerId, _U('goback'))
+				TriggerClientEvent("chatMessage", xPlayer.source, _U('goback'))
 	      		savedCoords[source] = nil
 	    	else
-	      		TriggerClientEvent("chatMessage", xPlayer.playerId, _U('goback_error'))
+	      		TriggerClientEvent("chatMessage", xPlayer.source, _U('goback_error'))
 	    	end
 	  	end
 	end
@@ -198,7 +198,7 @@ RegisterCommand("noclip", function(source, args, rawCommand)	-- /goback will tel
 	if source ~= 0 then
 	  	local xPlayer = ESX.GetPlayerFromId(source)
 	  	if havePermission(xPlayer) then
-	    	TriggerClientEvent("esx_admin:noclip", xPlayer.playerId)
+	    	TriggerClientEvent("esx_admin:noclip", xPlayer.source)
 	  	end
 	end
 end, false)
@@ -211,14 +211,14 @@ RegisterCommand("kill", function(source, args, rawCommand)	-- /kill [ID]
 				local targetId = tonumber(args[1])
       			local xTarget = ESX.GetPlayerFromId(targetId)
       			if xTarget then
-					TriggerClientEvent("esx_admin:killPlayer", xTarget.playerId)
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('kill_admin', targetId))
-					TriggerClientEvent('chatMessage', xTarget.playerId, _U('kill_by_admin'))
+					TriggerClientEvent("esx_admin:killPlayer", xTarget.source)
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('kill_admin', targetId))
+					TriggerClientEvent('chatMessage', xTarget.source, _U('kill_by_admin'))
       			else
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'KILL'))
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'KILL'))
       			end
     		else
-      			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'KILL'))
+      			TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'KILL'))
     		end
   		end
 	end
@@ -233,14 +233,14 @@ RegisterCommand("freeze", function(source, args, rawCommand)	-- /freeze [ID]
       			local targetId = tonumber(args[1])
       			local xTarget = ESX.GetPlayerFromId(targetId)
       			if xTarget then
-        			TriggerClientEvent("esx_admin:freezePlayer", xTarget.playerId, 'freeze')
-					TriggerClientEvent("chatMessage", xPlayer.playerId, _U('freeze_admin', args[1]))
-					TriggerClientEvent("chatMessage", xTarget.playerId, _U('freeze_player'))
+        			TriggerClientEvent("esx_admin:freezePlayer", xTarget.source, 'freeze')
+					TriggerClientEvent("chatMessage", xPlayer.source, _U('freeze_admin', args[1]))
+					TriggerClientEvent("chatMessage", xTarget.source, _U('freeze_player'))
       			else
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'FREEZE'))
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'FREEZE'))
       			end
     		else
-		      	TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'FREEZE'))
+		      	TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'FREEZE'))
     		end
   		end
 	end
@@ -254,14 +254,14 @@ RegisterCommand("unfreeze", function(source, args, rawCommand)	-- /unfreeze [ID]
       			local targetId = tonumber(args[1])
       			local xTarget = ESX.GetPlayerFromId(targetId)
       			if xTarget then
-        			TriggerClientEvent("esx_admin:freezePlayer", xTarget.playerId, 'unfreeze')
-					TriggerClientEvent("chatMessage", xPlayer.playerId, _U('unfreeze_admin', args[1]))
-					TriggerClientEvent("chatMessage", xTarget.playerId, _U('unfreeze_player'))
+        			TriggerClientEvent("esx_admin:freezePlayer", xTarget.source, 'unfreeze')
+					TriggerClientEvent("chatMessage", xPlayer.source, _U('unfreeze_admin', args[1]))
+					TriggerClientEvent("chatMessage", xTarget.source, _U('unfreeze_player'))
       			else
-        			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'UNFREEZE'))
+        			TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'UNFREEZE'))
       			end
     		else
-      			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'UNFREEZE'))
+      			TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'UNFREEZE'))
     		end
   		end
 	end
@@ -294,14 +294,14 @@ RegisterCommand("a", function(source, args, rawCommand)	-- /a command for adminc
 				for i=1, #xAll, 1 do
 					local xTarget = ESX.GetPlayerFromId(xAll[i])
 					if havePermission(xTarget) then
-						if xPlayer.playerId ~= xTarget.playerId then
-							TriggerClientEvent('chatMessage', xTarget.playerId, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
+						if xPlayer.source ~= xTarget.source then
+							TriggerClientEvent('chatMessage', xTarget.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
 						end
 					end
 				end
-				TriggerClientEvent('chatMessage', xTarget.playerId, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
+				TriggerClientEvent('chatMessage', xTarget.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
 			else
-				TriggerClientEvent('chatMessage', xPlayer.playerId, _U('invalid_input', 'AdminChat'))
+				TriggerClientEvent('chatMessage', xPlayer.source, _U('invalid_input', 'AdminChat'))
 			end
 		end
 	end
@@ -313,32 +313,32 @@ RegisterCommand("warn", function(source, args, rawCommand)	-- /warn [ID] , will 
   		if havePermission(xPlayer) then
     		if args[1] and tonumber(args[1]) then
 					if source == tonumber(args[1]) then
-						TriggerClientEvent("chatMessage", xPlayer.playerId, _U('selfwarn'))
+						TriggerClientEvent("chatMessage", xPlayer.source, _U('selfwarn'))
 					else
       					local targetId = tonumber(args[1])
       					local xTarget = ESX.GetPlayerFromId(targetId)
       					if xTarget then
 							if havePermission(xTarget) then
-								TriggerClientEvent("chatMessage", xPlayer.playerId, _U('adminwarn'))
-								TriggerClientEvent("chatMessage", xTarget.playerId, _U('adminwarn_to', args[1],xPlayer.getName(), xPlayer.getGroup()))
+								TriggerClientEvent("chatMessage", xPlayer.source, _U('adminwarn'))
+								TriggerClientEvent("chatMessage", xTarget.source, _U('adminwarn_to', args[1],xPlayer.getName(), xPlayer.getGroup()))
 							else
 								local warnCount = warnedPlayers[targetId] or 1
 								if warnCount >= Config.warnMax then
 									DropPlayer(targetId, _U('warnkick'))
-									TriggerClientEvent("chatMessage", xPlayer.playerId, _U('playerkicked', args[1], warnCount, Config.warnMa))
+									TriggerClientEvent("chatMessage", xPlayer.source, _U('playerkicked', args[1], warnCount, Config.warnMa))
 									warnedPlayers[targetId] = nil
 								else
-									TriggerClientEvent("chatMessage", xPlayer.playerId, _U('playerwarned', args[1], warnCount, Config.warnMa))
-									TriggerClientEvent("chatMessage", xTarget.playerId, _U('gotwarn', warnCount, Config.warnMa))
+									TriggerClientEvent("chatMessage", xPlayer.source, _U('playerwarned', args[1], warnCount, Config.warnMa))
+									TriggerClientEvent("chatMessage", xTarget.source, _U('gotwarn', warnCount, Config.warnMa))
 									warnedPlayers[targetId] = warnCount + 1
 								end
 							end
       					else
-        				TriggerClientEvent("chatMessage", xPlayer.playerId, _U('not_online', 'WARN'))
+        				TriggerClientEvent("chatMessage", xPlayer.source, _U('not_online', 'WARN'))
       				end
 				end
     		else
-      			TriggerClientEvent("chatMessage", xPlayer.playerId, _U('invalid_input', 'WARN'))
+      			TriggerClientEvent("chatMessage", xPlayer.source, _U('invalid_input', 'WARN'))
     		end
   		end
 	end
