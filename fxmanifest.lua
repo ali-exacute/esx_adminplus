@@ -1,4 +1,4 @@
-fx_version 'bodacious'
+fx_version 'cerulean'
 game 'gta5'
 author 'Ali Exacute#2588'
 description 'ESX Admin commands'
