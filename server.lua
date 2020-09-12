@@ -325,11 +325,11 @@ RegisterCommand("warn", function(source, args, rawCommand)	-- /warn [ID] , will 
 								local warnCount = warnedPlayers[targetId] or 1
 								if warnCount >= Config.warnMax then
 									DropPlayer(targetId, _U('warnkick'))
-									TriggerClientEvent("chatMessage", xPlayer.source, _U('playerkicked', args[1], warnCount, Config.warnMa))
+									TriggerClientEvent("chatMessage", xPlayer.source, _U('playerkicked', args[1], warnCount, Config.warnMax))
 									warnedPlayers[targetId] = nil
 								else
-									TriggerClientEvent("chatMessage", xPlayer.source, _U('playerwarned', args[1], warnCount, Config.warnMa))
-									TriggerClientEvent("chatMessage", xTarget.source, _U('gotwarn', warnCount, Config.warnMa))
+									TriggerClientEvent("chatMessage", xPlayer.source, _U('playerwarned', args[1], warnCount, Config.warnMax))
+									TriggerClientEvent("chatMessage", xTarget.source, _U('gotwarn', warnCount, Config.warnMax))
 									warnedPlayers[targetId] = warnCount + 1
 								end
 							end
