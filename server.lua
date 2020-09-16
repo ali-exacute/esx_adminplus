@@ -299,7 +299,7 @@ RegisterCommand("a", function(source, args, rawCommand)	-- /a command for adminc
 						end
 					end
 				end
-				TriggerClientEvent('chatMessage', xTarget.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
+				TriggerClientEvent('chatMessage', xPlayer.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
 			else
 				TriggerClientEvent('chatMessage', xPlayer.source, _U('invalid_input', 'AdminChat'))
 			end
