@@ -294,12 +294,9 @@ RegisterCommand("a", function(source, args, rawCommand)	-- /a command for adminc
 				for i=1, #xAll, 1 do
 					local xTarget = ESX.GetPlayerFromId(xAll[i])
 					if havePermission(xTarget) then
-						if xPlayer.source ~= xTarget.source then
-							TriggerClientEvent('chatMessage', xTarget.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
-						end
+						TriggerClientEvent('chatMessage', xTarget.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
 					end
 				end
-				TriggerClientEvent('chatMessage', xPlayer.source, _U('adminchat', xPlayer.getName(), xPlayer.getGroup(), message))
 			else
 				TriggerClientEvent('chatMessage', xPlayer.source, _U('invalid_input', 'AdminChat'))
 			end
