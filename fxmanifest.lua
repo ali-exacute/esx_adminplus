@@ -6,6 +6,7 @@ version '1.1.0'
 
 shared_scripts {
     '@es_extended/locale.lua',
+    '@mysql-async/lib/MySQL.lua',
     'locales/en.lua',
     'locales/es.lua',
     'locales/fa.lua',
