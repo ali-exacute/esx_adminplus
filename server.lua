@@ -31,7 +31,20 @@ RegisterCommand("coords", function(source, args, rawCommand)	-- /coords		print e
 		end
 	end
 end, false)
-
+RegisterCommand("setgroup", function(source, args, rawCommand) -- setgroup // Updates a users group in the database, can only be used from the console.
+	local targetSource = args[1]
+	local group = args[2]
+	local xTargetPlayer = ESX.GetPlayerFromId(targetSource)
+	if source ~= 0 then
+		print(ESX.GetPlayerFromId(source).getName() .. 'tried to run setgroup command')
+	else
+		local identifier = xTargetPlayer.getIdentifier()
+		local result = MySQL.Sync.execute('UPDATE `users` SET `group` = @group WHERE `identifier` = @identifier', {
+			['@group'] = group,
+			['@identifier'] = identifier})
+			print(result)
+		end
+end, false)
 RegisterCommand("players", function(source, args, rawCommand)	-- players		show online players | console only
 	isPlayerOnline = false
 	if source == 0 then
