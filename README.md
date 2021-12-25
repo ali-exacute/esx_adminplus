@@ -69,7 +69,7 @@ thats it!
 
 **my other scripts :**
 
-[second hand vehicle](https://forum.cfx.re/t/esx-exm-second-hand-vehicle-v1-2-2-sell-your-used-cars-to-other-players)
+[second hand vehicle Remastered](https://forum.cfx.re/t/esx-exm-second-hand-vehicle-remastered-shv-v2-sell-your-used-cars-to-other-players/2114411)
 
 [Advanced Job System](https://forum.cfx.re/t/esx-advanced-job-system/2616104)
 
