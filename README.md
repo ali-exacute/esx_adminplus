@@ -78,7 +78,7 @@ thats it!
 
 hope you like it!
 
-if you need help about this script you can contact me @ https://discord.com/invite/Mgyg2nVRhC
+if you need help about this script you can contact me @ https://discord.gg/a64JxMvuAM
 
 _I am gonna work on a new administrator menu (yes, MENU!) soon,
 but its gonna be a lot of work_
